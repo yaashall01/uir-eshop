@@ -1,0 +1,18 @@
+.university-title{
+    color: #a7a7ac;
+    font-size: small;
+    font-weight: bold;
+    margin: 0 auto ;
+    text-align: center;
+}
+
+.university-subtitle{
+    display: block;
+    text-align: center;
+    font-size: small;
+    color: #003667;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+
+}
