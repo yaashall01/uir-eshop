@@ -4,6 +4,9 @@ import { Etiquette } from "./etiquette"
 import { Supplier } from "./supplier"
 
 export interface Product{
+    name: string;
+    id: any;
+    image: string;
     idProduct:	number;
     nomProduct:	string;
     description:	string;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { LayoutService } from 'src/app/service/app.layout.service';
 
 @Component({
   selector: 'app-menu',
@@ -28,22 +28,22 @@ export class MenuComponent implements OnInit {
                     {
                         label: 'All Products',
                         icon: 'pi pi-fw pi-box',
-                        routerLink: ['/auth/login']
+                        routerLink: ['/products']
                     },
                     {
                         label: 'Category',
                         icon: 'pi pi-fw pi-list',
-                        routerLink: ['/auth/error']
+                        routerLink: ['/category']
                     },
                     {
                         label: 'Variety',
                         icon: 'pi pi-fw pi-sliders-v',
-                        routerLink: ['/auth/access']
+                        routerLink: ['/variety']
                     },
                     {
                         label: 'Supplier',
                         icon: 'pi pi-fw pi-building',
-                        routerLink: ['/auth/access']
+                        routerLink: ['product']
                     }
                 ] },
                   { label: 'Orders', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },

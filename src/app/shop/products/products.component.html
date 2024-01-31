@@ -1,0 +1,128 @@
+
+  <div class="card flex justify-content-center">
+    <p-button  (click)="toggleCreateProduct()" icon="pi pi-check" label="Add Product"
+    *ngIf="!isCreateNewProduct">
+    </p-button>
+    <p-button (click)="toggleCreateProduct()" icon="pi pi-times" 
+    label="Cancel"
+    *ngIf="isCreateNewProduct">
+    </p-button>
+</div>
+<div *ngIf="isCreateNewProduct">
+    <app-add-product ></app-add-product>
+</div>
+
+<div  *ngIf="!isCreateNewProduct" class="card">
+    <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header" let-product>
+            <tr>
+                <th>Code </th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Variety</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Reference</th>
+                <th>Suplier</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product >
+            <tr>
+                <td>{{product.idProduct}}</td>
+                <td class="p-4">
+                    <img src="{{product.imgs}}" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                </td>
+                <td>{{product.nomProduct}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.prixProduct}}</td>
+                <td>{{product.category.nomCategory}}</td>
+                <td><ul>
+                    <li *ngFor="let varr of product.varieties">
+                        {{varr.varietyName}}
+                    </li>
+                </ul> </td>
+                <td>{{product.quantity}}</td>
+                <td>Status</td>
+                <td>{{product.reference}}</td>
+                <td>{{product.supplier.nomSupplier}}</td>
+                <td ><i  (click)="editProduct(product)"  class="pi pi-pencil cursor-pointer hover:text-blue-400"></i></td>
+                <td><i (click)="deleteProduct(product.idProduct)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i>  
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<div class="card flex justify-content-center">
+    
+    <p-dialog
+     header="{isEditing ? add : edit}"
+     [(visible)]="visible" 
+     [modal]="true"
+      [draggable]="false" 
+     [resizable]="false"
+     (onHide)="visible=false"
+     [style]="{ width: '50rem' }" 
+     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Category</span>
+                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Category</span>
+            </div>
+        </ng-template>
+        <form [formGroup]="ProductForm" class="product-form">
+            <div class="grid gap-4 mb-4 grid-cols-2">
+               <div class="col-span-2">
+                    <label for="nomProduct" class="block mb-2 text-sm font-medium text-gray-900 ">Name:</label>
+                    <input type="text" pInputText id="nomProduct" [style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"  formControlName="nomProduct"  />  
+                </div>
+                <div class="col-span-2">
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description:</label>
+                    <textarea pInputTextarea id="description"[style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"  formControlName="description" ></textarea>  
+                </div>
+                <div class="col-span-2">
+                    <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 ">Quantity:</label>
+                    <p-inputNumber  inputId="quantity" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" formControlName="quantity" [style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"> </p-inputNumber>  
+                </div>
+                
+                <div class="col-span-2">
+                    <label for="prixProduct" class="block mb-2 text-sm font-medium text-gray-900 ">Price:</label>
+                    <input type="text" name="prixProduct" id="prixProduct" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
+                    placeholder="" required="" formControlName="prixProduct" >   
+                </div>
+                <div class="col-span-2">
+                    <label for="reference" class="block mb-2 text-sm font-medium text-gray-900 ">Reference:</label>
+                    <input type="text" name="reference" id="reference" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
+                    placeholder="" required="" formControlName="reference" >  
+                </div>
+                <div  class="col-span-2">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category:</label>
+                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Categories"  optionLabel="nomCategory" placeholder="Select a City"></p-dropdown>
+
+                </div>
+                <div  class="col-span-2">
+                    <label for="supplier" class="block mb-2 text-sm font-medium text-gray-900 ">Supplier:</label>
+                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Suppliers"  optionLabel="nomSupplier" placeholder="Select a City"></p-dropdown>
+                </div>
+                <div  class="col-span-2">
+                    <label for="variety" class="block mb-2 text-sm font-medium text-gray-900 ">Variety:</label>
+                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Varieties"  optionLabel="varietyName" placeholder="Select a City"></p-dropdown>
+                </div>
+                <div class="col-span-2">
+                    <label for="imgs" class="block mb-2 text-sm font-medium text-gray-900 ">Picture:</label>
+                    <input type="text" name="imgs" id="imgs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
+                    placeholder="" required="" formControlName="imgs" >  
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateProduct()" label="Edit Category" pAutoFocus [autofocus]="true" [disabled]="ProductForm.invalid"></p-button>
+        </ng-template>
+    </p-dialog>
+    </div>

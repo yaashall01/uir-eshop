@@ -1,9 +1,9 @@
 import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
-import { AppSidebarComponent } from '../../layout/app.sidebar.component';
-import { AppTopBarComponent } from '../../layout/app.topbar.component';
-import { LayoutService } from '../../layout/service/app.layout.service';
+import { LayoutService } from '../../service/app.layout.service';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { TopbarComponent } from '../topbar/topbar.component';
 
 @Component({
   selector: 'app-home',
@@ -18,9 +18,9 @@ export class HomeComponent implements OnDestroy {
 
   profileMenuOutsideClickListener: any;
 
-  @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
+  @ViewChild(SidebarComponent) appSidebar!: SidebarComponent;
 
-  @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
+  @ViewChild(TopbarComponent) appTopbar!: TopbarComponent;
 
   constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router) {
       this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {

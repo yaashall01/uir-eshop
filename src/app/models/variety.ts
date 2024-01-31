@@ -1,4 +1,4 @@
-export interface variety{
+export interface Variety{
     idVariety :	number;
     varietyName	: string;
     varietyValue: string;

@@ -1,0 +1,70 @@
+<div class="card flex justify-content-center">
+    <p-button (click)="toggleModal()" icon="pi pi-check" label="Add Variety"></p-button>
+    <p-dialog
+     header=""
+     [(visible)]="visible" 
+     [modal]="true" 
+     [style]="{ width: '50rem' }" 
+     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Variety</span>
+                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Variety</span>
+            </div>
+        </ng-template>
+        <form [formGroup]="varietyForm" class="product-form">
+            <div class="field">
+                <label class="block" for="varietyName">varietyName </label>
+                <input type="text" pInputText formControlName="varietyName"/>              
+                <div *ngIf="varietyForm.get('varietyName')?.hasError('required') && varietyForm.get('varietyName')?.touched">
+                    Variety Name is required.
+                </div>           
+            </div> 
+            <div class="field">
+                <label class="block" for="varietyValue">varietyValue </label>
+                <input type="text" pInputText formControlName="varietyValue"/>              
+                <div *ngIf="varietyForm.get('varietyValue')?.hasError('required') && varietyForm.get('varietyValue')?.touched">
+                    Variety Value is required.
+                </div>           
+            </div>
+            <div class="field">
+                <label class="block" for="quantity">quantity </label>
+                <input type="text" pInputText formControlName="quantity"/>              
+                <div *ngIf="varietyForm.get('quantity')?.hasError('required') && varietyForm.get('quantity')?.touched">
+                    Variety quantity is required.
+                </div>           
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" *ngIf="!isEditing" (click)="addVariety()" label="Add Variety" pAutoFocus [autofocus]="true" [disabled]="varietyForm.invalid"></p-button>
+            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateVariety()" label="Edit Variety" pAutoFocus [autofocus]="true" [disabled]="varietyForm.invalid"></p-button>
+        </ng-template>
+    </p-dialog>
+    </div>
+
+<div class="card">
+    <p-table [value]="varietys" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr >
+                <th>Code</th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-variety>
+            <tr>
+                <td>{{ variety.idVariety }}</td>
+                <td>{{ variety.varietyName }}</td>
+                <td>{{ variety.varietyValue }}</td>
+                <td>{{ variety.quantity }}</td>
+                <td ><i  (click)="editVariety(variety)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
+                <td> <i (click)="deleteVariety(variety.idVariety)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>          
+
+

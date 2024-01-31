@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { MenuComponent } from '../menu/menu.component';
 import { MenuitemComponent } from '../menu/menuitem/menuitem.component';
@@ -16,7 +15,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 import { SidebarModule } from 'primeng/sidebar';
-import { AppConfigModule } from 'src/app/layout/config/config.module';
+// import { AppConfigModule } from 'src/app/layout/config/config.module';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -31,19 +30,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
    ],
   imports: [
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        InputTextModule,
-        SidebarModule,
-        BadgeModule,
-        RadioButtonModule,
-        InputSwitchModule,
-        RippleModule,
-        RouterModule,
-        AppConfigModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    SidebarModule,
+    BadgeModule,
+    RadioButtonModule,
+    InputSwitchModule,
+    RippleModule,
+    RouterModule,
+    // AppConfigModule
   
   ]
 })

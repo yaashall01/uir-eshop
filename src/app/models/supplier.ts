@@ -1,5 +1,5 @@
 import { ProductObject } from "./productOjbect";
-import { Product } from "./products";
+import { Product } from "./product";
 
 export interface Supplier{
 idSupplier:	number;

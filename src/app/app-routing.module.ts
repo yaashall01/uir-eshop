@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppLayoutComponent } from './layout/app.layout.component';
 import { HomeComponent } from './home-base/home/home.component';
+import { ProductComponent } from './shop/product/product.component';
+import { CategoryComponent } from './shop/category/category.component';
+import { VarietyComponent } from './shop/variety/variety.component';
+import { ProductsComponent } from './shop/products/products.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent,}
+  { path: '', component: HomeComponent,children:[
+    {path : 'product', component: ProductComponent},
+    {path : 'category', component: CategoryComponent},
+    {path : 'variety', component: VarietyComponent},
+    {path : 'products', component: ProductsComponent},
+  ]
+}
 
 
 ];

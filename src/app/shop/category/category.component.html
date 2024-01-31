@@ -1,0 +1,56 @@
+<div class="card flex justify-content-center">
+    <p-button (click)="toggleModal()" icon="pi pi-check" label="Add Category"></p-button>
+    <p-dialog
+     header="{isEditing ? add : edit}"
+     [(visible)]="visible" 
+     [modal]="true"
+      [draggable]="false" 
+     [resizable]="false"
+     (onHide)="visible=false"
+     [style]="{ width: '50rem' }" 
+     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Category</span>
+                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Category</span>
+            </div>
+        </ng-template>
+        <form [formGroup]="categoryForm" class="product-form">
+            <div class="field">
+                <label class="block" for="nomCategory">nomCategory </label>
+                <input type="text" pInputText formControlName="nomCategory"/>              
+                <div *ngIf="categoryForm.get('nomCategory')?.hasError('required') && categoryForm.get('nomCategory')?.touched">
+                    Category Name is required.
+                </div>           
+            </div>
+            
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" *ngIf="!isEditing" (click)="addCategory()" label="Add Category" pAutoFocus [autofocus]="true" [disabled]="categoryForm.invalid"></p-button>
+            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateCategory()" label="Edit Category" pAutoFocus [autofocus]="true" [disabled]="categoryForm.invalid"></p-button>
+        </ng-template>
+    </p-dialog>
+    </div>
+
+<div class="card">
+    <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr >
+                <th>Code</th>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+            <tr>
+                <td>{{ category.idCategory }}</td>
+                <td>{{ category.nomCategory }}</td>
+                <td ><i  (click)="editCategory(category)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
+                <td><i (click)="deleteCategory(category.idCategory)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>          
+
+
