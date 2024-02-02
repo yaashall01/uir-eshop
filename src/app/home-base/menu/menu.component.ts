@@ -43,10 +43,10 @@ export class MenuComponent implements OnInit {
                     {
                         label: 'Supplier',
                         icon: 'pi pi-fw pi-building',
-                        routerLink: ['product']
+                        routerLink: ['/supplier']
                     }
                 ] },
-                  { label: 'Orders', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
+                  { label: 'Orders', icon: 'pi pi-fw pi-check-square', routerLink: ['orders'] },
                   { label: 'Shipping', icon: 'pi pi-fw pi-truck', routerLink: ['/uikit/floatlabel'] },
                   { label: 'Billing', icon: 'pi pi-fw pi-dollar', routerLink: ['/uikit/invalidstate'] }
               ]

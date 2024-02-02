@@ -13,13 +13,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
-import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { TreeTableModule } from 'primeng/treetable';
 import { ToolbarModule } from 'primeng/toolbar';
 import { VarietyComponent } from './variety/variety.component';
 import { AddProductComponent } from './add-product/add-product.component';
-import { ProductComponent } from './product/product.component';
-
+import { OrdersComponent } from './orders/orders.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { SuppliersComponent } from './suppliers/suppliers.component';
 
 @NgModule({
   declarations: [  
@@ -27,7 +30,8 @@ import { ProductComponent } from './product/product.component';
     CategoryComponent,
     VarietyComponent,
     AddProductComponent,
-    ProductComponent
+    OrdersComponent,
+    SuppliersComponent
     ],
   imports: [
     CommonModule,
@@ -46,6 +50,10 @@ import { ProductComponent } from './product/product.component';
     InputNumberModule,
     DialogModule,
     ReactiveFormsModule,
+    TreeTableModule,
+    TagModule,
+    BrowserModule,
+
 
   ]
 })

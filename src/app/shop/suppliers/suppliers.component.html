@@ -1,0 +1,99 @@
+<div class="card flex justify-content-center">
+    <p-button (click)="toggleModal()" icon="pi pi-check" label="Add Supplier"></p-button>
+    <p-dialog
+     header=""
+     [(visible)]="visible" 
+     [modal]="true" 
+     [style]="{ width: '50rem' }" 
+     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Supplier</span>
+                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Supplier</span>
+            </div>
+        </ng-template>
+        <form [formGroup]="supplierForm" class="supplier-form">
+            <div class="field">
+                <label class="block" for="nomSupplier">nomSupplier </label>
+                <input type="text" pInputText formControlName="nomSupplier"/>              
+                <div *ngIf="supplierForm.get('nomSupplier')?.hasError('required') && supplierForm.get('nomSupplier')?.touched">
+                    supplier Name is required.
+                </div>           
+            </div> 
+            <div class="field">
+                <label class="block" for="mail">mail </label>
+                <input type="text" pInputText formControlName="mail"/>              
+                <div *ngIf="supplierForm.get('mail')?.hasError('required') && supplierForm.get('mail')?.touched">
+                    supplier email is required.
+                </div>           
+            </div>
+            <div class="field">
+                <label class="block" for="rib">rib </label>
+                <input type="number" pInputText formControlName="rib"/>              
+                <div *ngIf="supplierForm.get('rib')?.hasError('required') && supplierForm.get('rib')?.touched">
+                    supplier rib is required.
+                </div>           
+            </div>
+            <div class="field">
+                <label class="block" for="phoneNumber">phoneNumber </label>
+                <input class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " type="number" pInputText formControlName="phoneNumber"/>              
+                <div *ngIf="supplierForm.get('phoneNumber')?.hasError('required') && supplierForm.get('phoneNumber')?.touched">
+                    supplier phoneNumber is required.
+                </div>           
+            </div>
+            <div class="col-span-2">
+                <label for="products" class="block ">list of products:</label>
+                <select multiple name="products" id="products" 
+                
+                class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " formControlName="products">
+                    <option *ngFor="let product of products" 
+                    [ngValue]="product.idProduct"
+                    >
+                 <!-- '{"idProduct":product.idProduct}' -->
+                    {{ product.idProduct }}</option>
+                </select>
+                <div *ngIf="supplierForm.get('products')?.hasError('required') && supplierForm.get('products')?.touched">
+                    list Product is required.
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" *ngIf="!isEditing" (click)="addSupplier()" label="Add Supplier" pAutoFocus [autofocus]="true" [disabled]="supplierForm.invalid"></p-button>
+            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateSupplier()" label="Edit Supplier" pAutoFocus [autofocus]="true" [disabled]="supplierForm.invalid"></p-button>
+        </ng-template>
+    </p-dialog>
+    </div>
+
+<div class="card">
+    <p-table [value]="suppliers" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr >
+                <th>name</th>
+                <th>email</th>
+                <th>rib</th>
+                <th>phone number</th>
+                <th>list products</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-supplier>
+            <tr>
+                <td>{{supplier.nomSupplier}}</td>
+                <td> {{supplier.mail}}</td>
+                <td>{{supplier.rib}}</td>
+                <td>{{supplier.phoneNumber}}</td>
+                <td><ul>
+                    <li *ngFor="let product of supplier.products ">{{ product.idProduct }}</li>
+                  </ul>
+                </td>
+                <td ><i  (click)="editSupplier(supplier)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
+                <td> <i (click)="deleteSupplier(supplier.idSupplier)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>          
+
+
