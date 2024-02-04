@@ -6,6 +6,7 @@ import { Supplier } from "./supplier"
 export interface Product{
     idProduct:	number;
     nomProduct:	string;
+    name:string
     description:	string;
     reference	:string;
     prixProduct:	number;

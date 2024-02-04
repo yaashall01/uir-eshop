@@ -109,7 +109,7 @@ export class SuppliersComponent implements OnInit{
         rib: supplier.rib,
         phoneNumber: supplier.phoneNumber,
         //products: this.tOproductObject(supplier.products)
-        products: this.tOproductObject(this.supplierForm.value.products)
+        products: supplier.products,
       });
     
       this.toggleModal();
@@ -124,10 +124,9 @@ export class SuppliersComponent implements OnInit{
       return newlist;
     }
 
-    onChangePrdSelected(event: any) {
+  onChangePrdSelected(event: any) {
   console.log(this.tOproductObject(this.supplierForm.value.products));
-  
-    }
+  }
 
 
 selectedSupplierId: number | null = null; 
@@ -137,14 +136,14 @@ updateSupplier() {
     mail: this.supplierForm.value.mail,
     rib:this.supplierForm.value.rib,
     phoneNumber:this.supplierForm.value.phoneNumber,
-    products:this.tOproductObject(this.supplierForm.value.products)
+    products:this.supplierForm.value.products,
   
   };
-  console.log("string", this.selectedSupplierId, updatedobject, this.suppliers);
+  console.log("string", this.selectedSupplierId, this.supplierForm.value, this.suppliers);
   
   if (this.selectedSupplierId && this.supplierForm.valid) {
 
-    this.supplierService.updateSupplier(this.selectedSupplierId,updatedobject).subscribe(
+    this.supplierService.updateSupplier(this.selectedSupplierId,this.supplierForm.value).subscribe(
       (res) => {
         console.log('API Response:', res);
         const idx = this.suppliers.findIndex((supplier) => supplier.idSupplier === res.idSupplier);

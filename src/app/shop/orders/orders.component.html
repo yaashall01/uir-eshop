@@ -1,4 +1,4 @@
-<p-table
+<!-- <p-table
   styleClass="p-datatable-striped"
   [tableStyle]="{ 'min-width': '20rem' }"
   [value]="orders"
@@ -231,4 +231,58 @@
       </td>
     </tr>
   </ng-template>
-</p-table>
+</p-table> -->
+<div class="card">
+  <p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Total Paye</th>
+        <th>Delivery Person</th>
+        <th>Method De Paiement</th>
+        <th>Commandes</th>
+        <th>Etat Paiement</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.totalPaye }}</td>
+        <td>{{ order.deliveryPerson?.fullname }}</td>
+        <td>{{ order.methodDePaiement }}</td>
+        <td>
+          <p-table [value]="order.commandItems">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>ID</th>
+                <th>Quantity</th>
+                <th>Prix</th>
+                <th>Produit</th>
+                <th>Catégorie</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-command>
+              <tr>
+                <td>{{ command.id }}</td>
+                <td>{{ command.quantity }}</td>
+                <td>{{ command.prix }}</td>
+                <td>{{ command.produit.libelle }}</td>
+                <td>{{ command.produit.categorieProduitDto.libele }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </td>
+        <td>{{ order.etatPaiement }}</td>
+        <td>
+          <i class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i>
+          <i class="pi pi-trash cursor-pointer hover:text-blue-400"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+
+

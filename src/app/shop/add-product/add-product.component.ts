@@ -8,6 +8,7 @@ import { ProductService } from "src/app/service/product.service";
 import { CategoryService } from "src/app/service/category.service";
 import { VarietyService } from "src/app/service/variety.service";
 import { SupplierService } from "src/app/service/supplier.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -21,51 +22,53 @@ export class AddProductComponent implements OnInit{
   Varieties!: Variety[];
   Products!: Product[];
   CurrentImages: string[] = [];
-  constructor(private fb:FormBuilder,private ProductService: ProductService,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){}
+  constructor(private router: Router,private fb:FormBuilder,private ProductService: ProductService,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){}
   ngOnInit(): void {
     this.getAllCategory();
     this.getAllSupplier();
     this.getVarietys();
     this.NewProductForm = this.fb.group({
-      productName:['', [Validators.required]],
+      name:['', [Validators.required]],
       reference:['', [Validators.required]],
       description:['', [Validators.required]],
       prixProduct:['', [Validators.required]],
       categoryID:['', [Validators.required]],
       supplierID:['', [Validators.required]],
-      varietyIDs:['', [Validators.required]],
+      varieties:['', [Validators.required]],
       quantity:['', [Validators.required]],
       imgs:['', [Validators.required]],
     })
   } 
+  
   addProduct(){
     if (this.NewProductForm.valid) {
       const newProduct : any = {
         idProduct: 0,
-        nomProduct: this.NewProductForm.value.productName,
+        name: this.NewProductForm.value.name,
         description: this.NewProductForm.value.description,
         reference: this.NewProductForm.value.reference,
         prixProduct: this.NewProductForm.value.prixProduct,
         categoryID: this.NewProductForm.value.categoryID,
         supplierID: this.NewProductForm.value.supplierID,
-        varietyIDs: this.NewProductForm.value.varietyIDs,
+        varieties: this.NewProductForm.value.varieties,
         imgs: this.getImgs(),
         quantity: this.NewProductForm.value.quantity,
       }
       console.log("prod",newProduct);
       this.ProductService.create(newProduct).subscribe(
         (addProduct: any) => {
-          // this.Products.push(addProduct);
-          // Reset the form after adding the category
+          
           this.NewProductForm.reset();
+          this.router.navigate(['products']);
         },
         (error: any) => {
-          console.error('Error adding category:', error);
+          console.error('Error adding p:', error);
         }
       );
       
     }
     console.log(this.NewProductForm.value.files);
+    
     
   }
   getCategoryID():String{

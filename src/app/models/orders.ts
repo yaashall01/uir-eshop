@@ -10,7 +10,7 @@ export interface Product {
   id: number;
   reference: string;
   libelle: string;
-  categorieProduitDto: ProductCategory | string;
+  categorieProduitDto: ProductCategory | string | undefined;
 }
 
 export interface ProductCategory {
@@ -32,7 +32,7 @@ export interface Order {
   etatLivraison: "PENDING" | "DELIVERED" | "CANCELLED";
   methodDePaiement: "EN_LIGNE" | "A_LA_LIVRAISON";
   etatPaiement: "PAYE" | "ANNULE" | "EN_ATTENTE";
-  commandeItemDtos: Array<Command> | string;
+  commandeItemDtos: Command[] | string;
 }
 export function mapCommandDto(order: Order, stringify = false) {
   if (stringify) {

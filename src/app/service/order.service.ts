@@ -11,15 +11,9 @@ export class OrderService {
 
   constructor(private http:HttpClient) { }
   
-  fecthAll() {
-    return this.http
-      .get<Array<Order>>(environment.urlApiO
-      )
-      .pipe(
-        map((commands) => {
-          return mapCommandDtos(commands);
-        })
-      );
+  
+  getAll(): Observable<Order[]> {
+    return this.http.get<Order[]>(environment.urlApiO);
   }
   
   update(id: number, order: Order): Observable<Order> {

@@ -23,15 +23,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { DeliveryComponent } from './delivery/delivery.component';
 
 @NgModule({
   declarations: [  
     ProductsComponent,
     CategoryComponent,
+    
     VarietyComponent,
     AddProductComponent,
     OrdersComponent,
-    SuppliersComponent
+    SuppliersComponent,
+    DeliveryComponent
     ],
   imports: [
     CommonModule,
@@ -53,7 +56,7 @@ import { SuppliersComponent } from './suppliers/suppliers.component';
     TreeTableModule,
     TagModule,
     BrowserModule,
-
+    TableModule,
 
   ]
 })

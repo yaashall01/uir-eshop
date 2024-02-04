@@ -14,10 +14,7 @@ export class VarietyService {
     return this.http.get<Variety[]>(environment.urlApiV);
   }
 
-  // public get():Observable<Variety> {
-  //   return this.http.get<Variety>(`${environment.urlApiV}`);
-  // }
-
+ 
   public create(data:Variety):Observable<Variety> {
     return this.http.post<Variety>(environment.urlApiV,data);
   }

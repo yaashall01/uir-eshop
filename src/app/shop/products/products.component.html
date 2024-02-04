@@ -1,6 +1,6 @@
 
   <div class="card flex justify-content-center">
-    <p-button  (click)="toggleCreateProduct()" icon="pi pi-check" label="Add Product"
+    <p-button  (click)="navigateToAddProduct()" icon="pi pi-plus" label="Add Product"
     *ngIf="!isCreateNewProduct">
     </p-button>
     <p-button (click)="toggleCreateProduct()" icon="pi pi-times" 
@@ -9,25 +9,23 @@
     </p-button>
 </div>
 <div *ngIf="isCreateNewProduct">
-    <app-add-product ></app-add-product>
 </div>
 
 <div  *ngIf="!isCreateNewProduct" class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header" let-product>
             <tr>
-                <th>Code </th>
+                <th>id  </th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Variety</th>
-                <th>Quantity</th>
-                <th>Status</th>
                 <th>Reference</th>
-                <th>Suplier</th>
-                <th></th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>supplier</th>
+                <th>etiquette</th>
+                <th>Variety</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -39,19 +37,24 @@
                 </td>
                 <td>{{product.nomProduct}}</td>
                 <td>{{product.description}}</td>
-                <td>{{product.prixProduct}}</td>
-                <td>{{product.category.nomCategory}}</td>
-                <td><ul>
-                    <li *ngFor="let varr of product.varieties">
-                        {{varr.varietyName}}
-                    </li>
-                </ul> </td>
-                <td>{{product.quantity}}</td>
-                <td>Status</td>
                 <td>{{product.reference}}</td>
+                <td>{{product.prixProduct}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.category.nomCategory}}</td>
                 <td>{{product.supplier.nomSupplier}}</td>
-                <td ><i  (click)="editProduct(product)"  class="pi pi-pencil cursor-pointer hover:text-blue-400"></i></td>
-                <td><i (click)="deleteProduct(product.idProduct)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i>  
+                <td><ul>
+                    <li *ngFor="let etiq of product.etiquette">
+                        {{etiq.nomEtiquette}}
+                    </li>
+                </ul> 
+                </td>
+                <td><div class="flex flex-col gap-y-2">
+                        <p-tag *ngFor="let varr of product.varieties" severity="success" value="{{varr.varietyName}}"></p-tag> 
+                    </div>
+                </td>
+                <td >
+                    <i (click)="editProduct(product)"  class="pi pi-pencil cursor-pointer hover:text-blue-400"></i>
+                    <i (click)="deleteProduct(product.idProduct)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i>  
                 </td>
             </tr>
         </ng-template>
@@ -72,57 +75,118 @@
      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
         <ng-template pTemplate="header">
             <div class="inline-flex align-items-center justify-content-center gap-2">
-                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Category</span>
-                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Category</span>
+                <span *ngIf="!isEditing" class="font-bold white-space-nowrap">Add Product</span>
+                <span *ngIf="isEditing" class="font-bold white-space-nowrap">Edit Product</span>
             </div>
         </ng-template>
         <form [formGroup]="ProductForm" class="product-form">
-            <div class="grid gap-4 mb-4 grid-cols-2">
-               <div class="col-span-2">
-                    <label for="nomProduct" class="block mb-2 text-sm font-medium text-gray-900 ">Name:</label>
-                    <input type="text" pInputText id="nomProduct" [style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"  formControlName="nomProduct"  />  
-                </div>
-                <div class="col-span-2">
-                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description:</label>
-                    <textarea pInputTextarea id="description"[style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"  formControlName="description" ></textarea>  
-                </div>
-                <div class="col-span-2">
-                    <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 ">Quantity:</label>
-                    <p-inputNumber  inputId="quantity" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" formControlName="quantity" [style]="{width:'100%'}" class="w-full p-2.5  rounded-lg"> </p-inputNumber>  
-                </div>
-                
-                <div class="col-span-2">
-                    <label for="prixProduct" class="block mb-2 text-sm font-medium text-gray-900 ">Price:</label>
-                    <input type="text" name="prixProduct" id="prixProduct" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
-                    placeholder="" required="" formControlName="prixProduct" >   
-                </div>
-                <div class="col-span-2">
-                    <label for="reference" class="block mb-2 text-sm font-medium text-gray-900 ">Reference:</label>
-                    <input type="text" name="reference" id="reference" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
-                    placeholder="" required="" formControlName="reference" >  
-                </div>
-                <div  class="col-span-2">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 ">Category:</label>
-                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Categories"  optionLabel="nomCategory" placeholder="Select a City"></p-dropdown>
-
-                </div>
-                <div  class="col-span-2">
-                    <label for="supplier" class="block mb-2 text-sm font-medium text-gray-900 ">Supplier:</label>
-                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Suppliers"  optionLabel="nomSupplier" placeholder="Select a City"></p-dropdown>
-                </div>
-                <div  class="col-span-2">
-                    <label for="variety" class="block mb-2 text-sm font-medium text-gray-900 ">Variety:</label>
-                    <p-dropdown [style]="{width:'100%'}" class="w-full" [options]="Varieties"  optionLabel="varietyName" placeholder="Select a City"></p-dropdown>
-                </div>
-                <div class="col-span-2">
-                    <label for="imgs" class="block mb-2 text-sm font-medium text-gray-900 ">Picture:</label>
-                    <input type="text" name="imgs" id="imgs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " 
-                    placeholder="" required="" formControlName="imgs" >  
+            <div class="field">
+                <label class="block" for="name">nomProduct </label>
+                <input type="text" pInputText formControlName="name" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
+                <div *ngIf="ProductForm.get('name')?.hasError('required') && ProductForm.get('name')?.touched">
+                    product Name is required.
+                </div>           
+            </div> 
+            <div class="field">
+                <label class="block" for="description">description </label>
+                <input type="text" pInputText formControlName="description" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
+                <div *ngIf="ProductForm.get('description')?.hasError('required') && ProductForm.get('description')?.touched">
+                    description is required.
+                </div>           
+            </div>
+            <div class="col-span-2">
+                <label for="reference" class="block">reference:</label>
+                <input type="text" pInputText name="reference" id="reference" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " 
+                placeholder="" required="" formControlName="reference" >
+                <div *ngIf="ProductForm.get('reference')?.hasError('required') && ProductForm.get('reference')?.touched">
+                    product reference is required.
+                  </div>   
+            </div>
+            <div class="col-span-2">
+                <label for="prixProduct" class="block ">prix product:</label>
+                <input type="number" pInputText name="prixProduct" id="prixProduct" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " 
+                placeholder="" required="" formControlName="prixProduct" >
+                <div *ngIf="ProductForm.get('prixProduct')?.hasError('required') && ProductForm.get('prixProduct')?.touched">
+                    prix product is required.
+                </div>   
+            </div>
+            <div class="col-span-2">
+                <label for="quantity" class="block ">quantity:</label>
+                <input type="number" pInputText name="quantity" id="quantity" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " 
+                placeholder="" required="" formControlName="quantity" >
+                <div *ngIf="ProductForm.get('quantity')?.hasError('required') && ProductForm.get('quantity')?.touched">
+                    product quantity is required.
+                  </div>   
+            </div>
+            
+            <div class="col-span-2">
+                <label for="category" class="block"> category:</label>
+                <select pInputText name="category" id="category" 
+                 class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " formControlName="categoryID">
+                    <option *ngFor="let category of Categories" 
+                    [ngValue]="category.idCategory">
+                    {{ category.nomCategory }}</option>
+                </select>
+                <div *ngIf="ProductForm.get('category')?.hasError('required') && ProductForm.get('category')?.touched">
+                    category is required.
                 </div>
             </div>
+            <div class="col-span-2">
+                <label for="supplier" class="block"> supplier:</label>
+                <select  pInputText name="supplier" id="supplier" 
+                 class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " formControlName="supplierID">
+                    <option *ngFor="let supplier of Suppliers" 
+                    [ngValue]="supplier.idSupplier">
+                    {{ supplier.idSupplier }}</option>
+                </select>
+                <div *ngIf="ProductForm.get('supplier')?.hasError('required') && ProductForm.get('supplier')?.touched">
+                    supplier is required.
+                </div>
+            </div>
+            
+            <div class="col-span-2">
+                <label for="varieties" class="block"> varieties:</label>
+                <select pInputText multiple name="varieties" id="varieties" 
+                 class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " formControlName="varieties">
+                    <option *ngFor="let variety of Varieties" 
+                    [ngValue]='{"idVariety":variety.idVariety}'>
+                    {{ variety.varietyName }}</option>
+                </select>
+                <div *ngIf="ProductForm.get('varieties')?.hasError('required') && ProductForm.get('varieties')?.touched">
+                    variety is required.
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label for="imgs" class="block ">imgs:</label>
+                <input type="text" pInputText name="imgs" id="imgs" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                " 
+                placeholder="" required="" formControlName="imgs" >
+                <div *ngIf="ProductForm.get('imgs')?.hasError('required') && ProductForm.get('imgs')?.touched">
+                    product imgs is required.
+                  </div>   
+            </div>
+            
         </form>
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateProduct()" label="Edit Category" pAutoFocus [autofocus]="true" [disabled]="ProductForm.invalid"></p-button>
+            <p-button icon="pi pi-check" *ngIf="isEditing" (click)="updateProduct()" label="Edit Product" pAutoFocus [autofocus]="true" ></p-button>
         </ng-template>
     </p-dialog>
     </div>
+
+
+
+
+
+
+
+
+
+

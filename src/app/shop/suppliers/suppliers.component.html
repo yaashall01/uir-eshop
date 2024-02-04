@@ -49,7 +49,7 @@
                 class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
                 " formControlName="products">
                     <option *ngFor="let product of products" 
-                    [ngValue]="product.idProduct"
+                    [ngValue]='{"idProduct":product.idProduct}'
                     >
                  <!-- '{"idProduct":product.idProduct}' -->
                     {{ product.idProduct }}</option>
@@ -85,11 +85,12 @@
                 <td> {{supplier.mail}}</td>
                 <td>{{supplier.rib}}</td>
                 <td>{{supplier.phoneNumber}}</td>
-                <td><ul>
+                <td>
+                  <ul>
                     <li *ngFor="let product of supplier.products ">{{ product.idProduct }}</li>
                   </ul>
                 </td>
-                <td ><i  (click)="editSupplier(supplier)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
+                <td ><i (click)="editSupplier(supplier)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
                 <td> <i (click)="deleteSupplier(supplier.idSupplier)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i></td>
             </tr>
         </ng-template>

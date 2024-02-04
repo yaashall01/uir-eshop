@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { CategoryService } from "src/app/service/category.service";
 import { VarietyService } from "src/app/service/variety.service";
 import { SupplierService } from "src/app/service/supplier.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -38,7 +39,7 @@ export class ProductsComponent implements OnInit{
       this.isEditing = false;
       this.ProductForm.reset();
     }
-    constructor(public productService: ProductService,private fb: FormBuilder,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){
+    constructor(private router: Router,private productService: ProductService,private fb: FormBuilder,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){
   
     }
     ngOnInit(): void {
@@ -47,14 +48,15 @@ export class ProductsComponent implements OnInit{
       this.getVarietys();
       this.getAllProduct();
       this.ProductForm = this.fb.group({
-        nomProduct:['', [Validators.required]],
+        //nomProduct:['', [Validators.required]],    
         reference:['', [Validators.required]],
         description:['', [Validators.required]],
         prixProduct:['', [Validators.required]],
-        category:['', [Validators.required]],
-        supplier:['', [Validators.required]],
+        categoryID:['', [Validators.required]],
         varieties:['', [Validators.required]],
+        supplierID:['', [Validators.required]],
         quantity:['', [Validators.required]],
+        name:['', [Validators.required]],
         imgs:['', [Validators.required]],
       });
       
@@ -103,13 +105,15 @@ export class ProductsComponent implements OnInit{
           this.products = this.products.filter(product => product.idProduct !== id);
         });
       }}
-  
+      navigateToAddProduct() {
+        this.router.navigate(['/addProduct']);
+      }
       editProduct(product: Product) {
         this.isEditing = true;
         this.selectedProductId=product.idProduct
   
         this.ProductForm.patchValue({
-          nomProduct: product.nomProduct,
+          name:product.nomProduct,
           description: product.description,
           reference: product.reference,
           prixProduct: product.prixProduct,
