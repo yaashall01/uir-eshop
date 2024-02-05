@@ -1,0 +1,58 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <h3 class="text-3xl font-bold dark:text-white my-4" style="text-align: center;">List Of Stocks</h3>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            #
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Product Reference
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Product name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Category
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Quantity
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Warehouse
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let stock of listStocks">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{stock.id}}
+          </th>
+          <td class="px-6 py-4">
+            {{stock.productDto.reference}}
+          </td>
+          <td class="px-6 py-4">
+            {{stock.productDto.name}}
+          </td>
+          <td class="px-6 py-4">
+            {{stock.productDto.categoryDto.label}}
+          </td>
+          <td class="px-6 py-4">
+            {{stock.quantity}}
+          </td>
+          <td class="px-6 py-4">
+            {{stock.warehouseDto.address}}
+          </td>
+          <td class="px-6 py-4">
+  <!--          <a routerLink="/stock/edit-stock/{{stock.id}}" routerLinkActive="router-link-active" routerLinkActive="router-link-active"-->
+  <!--            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>-->
+            <a (click)="deleteStock(stock.id)" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-3">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

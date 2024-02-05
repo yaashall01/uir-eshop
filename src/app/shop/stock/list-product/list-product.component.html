@@ -1,0 +1,62 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <h3 class="text-3xl font-bold dark:text-white my-4" style="text-align: center;">List Of Products    </h3>
+    <ng-container *ngIf="isShown">
+        <app-cargo [newCargo]="newCargo" (close)="close()" (increment)="incrementStocks()" ></app-cargo>
+    </ng-container>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            ID
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Reference
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Name
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Description
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Category
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Stocks
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let product of products">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ product.id }}
+          </th>
+          <td class="px-6 py-4">
+            {{ product.reference }}
+          </td>
+          <td class="px-6 py-4">
+            {{ product.name }}
+          </td>
+          <td class="px-6 py-4">
+            {{ product.description }}
+          </td>
+          <td class="px-6 py-4">
+            {{ product.categoryDto.label }}
+          </td>
+          <td class="px-6 py-4">
+            {{ product.stockDtos.length }}
+          </td>
+          <td class="px-6 py-4">
+            <a [routerLink]="['product-edit/'+product.id]" routerLinkActive="router-link-active"  routerLinkActive="router-link-active"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a (click)="open(product)" data-modal-target="crud-modal"
+            data-modal-toggle="crud-modal" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-3">Add Cargo</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+

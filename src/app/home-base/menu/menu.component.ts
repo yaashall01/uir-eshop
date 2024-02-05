@@ -47,6 +47,36 @@ export class MenuComponent implements OnInit {
                     }
                 ] },
                   { label: 'Orders', icon: 'pi pi-fw pi-check-square', routerLink: ['orders'] },
+                  { label: 'Stock', icon: 'pi pi-fw pi-check-square', 
+                  items: [
+                    {
+                        label: 'List of Werehouse',
+                        icon: 'pi pi-fw pi-box',
+                        routerLink: ['stock/list-werehouse']
+                    },
+                    {
+                        label: 'List of Products',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['stock/list-product']
+                    },
+                    {
+                        label: 'List of Packages',
+                        icon: 'pi pi-fw pi-sliders-v',
+                        routerLink: ['stock/list-package']
+                    },
+                    {
+                        label: 'List of Stock',
+                        icon: 'pi pi-fw pi-building',
+                        routerLink: ['stock/list-stock']
+                    }
+                    ,
+                    {
+                        label: 'List of Categories',
+                        icon: 'pi pi-fw pi-building',
+                        routerLink: ['stock/list-category']
+                    }
+                ]
+                },
                   { label: 'Shipping', icon: 'pi pi-fw pi-truck', routerLink: ['/uikit/floatlabel'] },
                   { label: 'Billing', icon: 'pi pi-fw pi-dollar', routerLink: ['/uikit/invalidstate'] }
               ]

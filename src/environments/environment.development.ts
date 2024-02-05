@@ -7,6 +7,7 @@ export const environment = {
   urlApiP : "http://38.242.131.85:8057/api/products",
   urlApiV : "http://38.242.131.85:8057/api/varietys",
   urlApiS : "http://38.242.131.85:8057/api/suppliers",
-  urlApiO : "http://38.242.131.85:8056/All"
+  urlApiO : "http://38.242.131.85:8056/All",
+  urlApiT : "http://38.242.131.85:8058/api/v1",
 
 };

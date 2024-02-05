@@ -1,0 +1,45 @@
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <h3 class="text-3xl font-bold dark:text-white my-4" style="text-align: center;">List Of Warehouses</h3>
+    <button type="button" routerLink="/stock/create-warehouse" routerLinkActive="router-link-active"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium my-5 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Add New Warehouse
+      <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+      </svg>
+    </button>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            #
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Warehouse Code
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Warehouse Address
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let warehouse of warehouses">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{warehouse.id}}
+          </th>
+          <td class="px-6 py-4">
+            {{warehouse.code}}
+          </td>
+          <td class="px-6 py-4">
+            {{warehouse.address}}
+          </td>
+          <td class="px-6 py-4">
+            <a routerLink = "/stock/edit-warehouse/{{warehouse.id}}" routerLinkActive="router-link-active"  routerLinkActive="router-link-active"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+            <a (click)="deleteWarehouse(warehouse.id)" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-3">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
