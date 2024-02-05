@@ -18,8 +18,13 @@ export class OrderService {
   
   update(id: number, order: Order): Observable<Order> {
     console.log(id, order);
-    return this.http.put<Order>(`http://38.242.131.85:8056/Update/10989}/${id}`, mapCommandDto(order, true));
+    return this.http.put<Order>(`${environment.urlApiO}/${id}`, order);
   }
+  
+  assignDelivery(idDelivery: number, idOrder: number): Observable<Order> {
+    return this.http.put<Order>(`${environment.urlApiO}/${idDelivery}/${idOrder}`, null);
+  }
+  
   
   delete(id: number): Observable<Order> {
     return this.http.delete<Order>(

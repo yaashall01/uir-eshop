@@ -1,247 +1,16 @@
-<!-- <p-table
-  styleClass="p-datatable-striped"
-  [tableStyle]="{ 'min-width': '20rem' }"
-  [value]="orders"
-  dataKey="id"
-  editMode="row"
->
-  <ng-template pTemplate="caption">
-    <div class="flex w-full items-center justify-between">
-      <p>Orders</p>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 5rem"></th>
-      <th class="hidden sm:block" pSortableColumn="id">
-        Reference <p-sortIcon field="id"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">
-        Client <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">
-        State <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th class="hidden sm:block">Actions</th>
-    </tr>
-  </ng-template>
-  <ng-template
-    pTemplate="body"
-    let-order
-    let-ri="rowIndex"
-    let-editing="editing"
-    let-expanded="expanded"
-  >
-    <tr [pEditableRow]="order">
-      <td>
-        <button
-          type="button"
-          pButton
-          pRipple
-          [pRowToggler]="order"
-          class="p-button-text p-button-rounded p-button-plain"
-          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-        ></button>
-      </td>
-      <td class="hidden sm:table-cell">{{ order.reference }}</td>
-      <td>
-        {{ order.client.fullName }}
-      </td>
-      <td>
-        <div class="flex flex-col gap-y-2">
-          <p-tag
-            [severity]="getSeverity(order.methodDePaiement)!"
-            value="{{ order.methodDePaiement }}"
-          ></p-tag>
-          <p-tag
-            [severity]="getSeverity(order.etatPaiement)!"
-            value="{{ order.etatPaiement }}"
-          ></p-tag>
-          <p-tag
-            [severity]="getSeverity(order.etatLivraison)!"
-            value="{{ order.etatLivraison }}"
-          ></p-tag>
-        </div>
-      </td>
-      <td class="hidden  sm:table-cell">
-        <div
-          *ngIf="order.etatLivraison == 'PENDING'"
-          class="flex flex-col gap-y-2"
-        >
-          <button
-            class="p-button-sm p-button-rounded"
-            pButton
-            pRipple
-            icon="pi pi-user"
-          ></button>
-          <button
-            class="p-button-sm p-button-rounded p-button-success w-60"
-            pButton
-            pRipple
-            icon="pi pi-check"
-          ></button>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="rowexpansion" let-commands>
-    <tr>
-      <td colspan="7">
-        <div
-          class="lg: grid grid-cols-3 gap-y-6 bg-white sm:p-6 lg:px-20 xl:px-32"
-        >
-          <div class="flex gap-x-2 text-lg font-bold">
-            <span>#Order ID:</span>
-            <span class="text-blue-600">{{ commands.id }}</span>
-          </div>
-          <div class="col-start-3 flex justify-end gap-x-2 text-lg font-bold">
-            <span>#Reference:</span>
-            <span class="text-blue-600">{{ commands.reference }}</span>
-          </div>
-          <div class="col-span-3 flex flex-col">
-            <p class="text-xl font-bold">Client Details</p>
-            <hr />
-          </div>
-          <div class="col-span-3 grid gap-y-2 sm:grid-cols-2">
-            <div class="flex gap-x-3">
-              <span class="font-bold">Full Name:</span>
-              <span>{{ commands.client.fullName }}</span>
-            </div>
-            <div class="flex gap-x-3 sm:justify-end">
-              <span>Email:</span>
-              <span>{{ commands.client.email }}</span>
-            </div>
-            <div class="flex gap-x-3">
-              <span>Address:</span>
-              <span>{{ commands.client.address }}</span>
-            </div>
-            <div class="flex gap-x-3 sm:justify-end">
-              <span>Phone:</span>
-              <span>{{ commands.client.phoneNumber }}</span>
-            </div>
-          </div>
-          <div class="col-span-3 flex flex-col">
-            <p class="text-xl font-bold">Delivery Status</p>
-            <hr />
-          </div>
-          <div class="col-span-3 grid gap-y-2 sm:grid-cols-2">
-            <div class="flex items-center gap-x-3 sm:row-span-2">
-              <p class="text-sm font-bold">STATUS:</p>
-              <p-tag
-                [severity]="getSeverity(commands.etatLivraison)!"
-                value="{{ commands.etatLivraison }}"
-              ></p-tag>
-            </div>
-            <div
-              *ngIf="commands.etatLivraison != 'PENDING'"
-              class="flex gap-x-3 sm:justify-end"
-            >
-              <p class="text-sm font-bold">Delivered By:</p>
-              <p>{{ commands.etatLivraison }}</p>
-            </div>
-            <div
-              *ngIf="commands.etatLivraison != 'DELIVERED'"
-              class="flex gap-x-3 sm:col-start-3 sm:justify-end"
-            >
-              <button
-                class="p-button-sm p-button-rounded p-button-success w-60"
-                pButton
-                pRipple
-								(click)="markAsDelivered(commands.id, commands)"
-                label="Mark as delivered"
-                icon="pi pi-check"
-              ></button>
-            </div>
-            <div
-              *ngIf="commands.etatLivraison == 'PENDING'"
-              class="flex justify-end gap-x-3 sm:col-start-3"
-            >
-              <button
-                class="p-button-sm p-button-rounded sm:w-60"
-                pButton
-                pRipple
-                label="Assign a delivery person"
-                icon="pi pi-user"
-              ></button>
-            </div>
-          </div>
-          <div class="col-span-3 flex flex-col">
-            <p class="text-xl font-bold">Orders Details</p>
-            <hr />
-          </div>
-          <div class="col-span-3 grid grid-cols-2">
-            <div class="col-span-3 grid gap-y-2 sm:grid-cols-2">
-              <div class="flex items-center gap-x-3">
-                <p class="text-sm font-bold">Payment Method:</p>
-                <p-tag
-                  [severity]="getSeverity(commands.methodDePaiement)!"
-                  value="{{ commands.methodDePaiement }}"
-                ></p-tag>
-              </div>
-              <div class="flex gap-x-3 sm:justify-end">
-                <p class="text-sm font-bold">Payment state:</p>
-                <p-tag
-                  [severity]="getSeverity(commands.etatPaiement)!"
-                  value="{{ commands.etatPaiement }}"
-                ></p-tag>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-3 sm:p-3">
-            <p-table
-              [value]="commands.commandeItemDtos"
-              styleClass="p-datatable-striped"
-              [tableStyle]="{ 'min-width': '20rem' }"
-              dataKey="id"
-              editMode="row"
-            >
-              <ng-template pTemplate="header">
-                <tr>
-                  <th class="hidden sm:block" pSortableColumn="name">
-                    Reference
-                  </th>
-                  <th pSortableColumn="name">Name</th>
-                  <th pSortableColumn="name">Quantity</th>
-                  <th pSortableColumn="name">Price</th>
-                  <th class="hidden sm:block" pSortableColumn="name">
-                    Category
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-command>
-                <tr>
-                  <th class="hidden sm:block" pSortableColumn="name">
-                    {{ command.produit.reference }}
-                  </th>
-                  <th pSortableColumn="name">{{ command.produit.libelle }}</th>
-                  <th pSortableColumn="name">{{ command.quantity }}</th>
-                  <th pSortableColumn="name">{{ command.prix }}</th>
-                  <th class="hidden sm:block" pSortableColumn="name">
-                    {{ command.produit.categorieProduitDto.libele }}
-                  </th>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-          <div class="col-start-3 flex justify-end gap-x-3 text-xl font-bold">
-            <p>Total:</p>
-            <p>{{ commands.totalPaye }}</p>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-</p-table> -->
+
 <div class="card">
   <p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
         <th>ID</th>
         <th>Total Paye</th>
+        <th>client </th>
         <th>Delivery Person</th>
-        <th>Method De Paiement</th>
         <th>Commandes</th>
-        <th>Etat Paiement</th>
+        <th>Method De Paiement</th>
+        <th>Payment state:</th>
+        <th>status</th>
         <th>Action</th>
       </tr>
     </ng-template>
@@ -249,40 +18,155 @@
       <tr>
         <td>{{ order.id }}</td>
         <td>{{ order.totalPaye }}</td>
-        <td>{{ order.deliveryPerson?.fullname }}</td>
-        <td>{{ order.methodDePaiement }}</td>
         <td>
-          <p-table [value]="order.commandItems">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>ID</th>
-                <th>Quantity</th>
-                <th>Prix</th>
-                <th>Produit</th>
-                <th>Catégorie</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-command>
-              <tr>
-                <td>{{ command.id }}</td>
-                <td>{{ command.quantity }}</td>
-                <td>{{ command.prix }}</td>
-                <td>{{ command.produit.libelle }}</td>
-                <td>{{ command.produit.categorieProduitDto.libele }}</td>
-              </tr>
-            </ng-template>
-          </p-table>
+          <div >
+            <span class="font-bold">Full Name:</span>
+            <span>{{ order.client.fullName }}</span>
+          </div>
+          <br>
+          <div (click)="toggleDetails2(order)" style="cursor: pointer; display: flex; align-items: center;">
+            <i [ngClass]="{'pi pi-chevron-up pi': order.showDetails2, 'pi pi-chevron-down pi': !order.showDetails2}" style="margin-right: 5px;"></i>
+            {{ order.showDetails2 ? 'Hidden' : 'Show' }} Client Details
+          </div><br>
+          
+          <div *ngIf="order.showDetails2">
+            <div >
+              
+              
+              <div class="flex gap-x-3 ">
+                <span class="font-bold">Email:</span>
+                <span>{{ order.client.email }}</span>
+              </div><br>
+              <div class="flex gap-x-3">
+                <span class="font-bold">Address:</span>
+                <span>{{ order.client.address }}</span>
+              </div><br>
+              <div class="flex gap-x-3 ">
+                <span class="font-bold">Phone:</span>
+                <span>{{ order.client.phoneNumber }}</span>
+              </div>
+              
+            </div>
+          </div>
         </td>
-        <td>{{ order.etatPaiement }}</td>
+        
         <td>
-          <i class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i>
-          <i class="pi pi-trash cursor-pointer hover:text-blue-400"></i>
+          <div *ngIf="order.deliveryPerson; else assignDeliveryPerson">
+            <div class="flex gap-x-3 sm:justify-end">
+              <p>{{ order.deliveryPerson.fullname }}</p>
+            </div>
+          </div>
+        
+          <ng-template #assignDeliveryPerson>
+            <div class="flex justify-end gap-x-3 sm:col-start-3">
+              <button
+                class="p-button-sm p-button-rounded sm:w-60"
+                pButton
+                pRipple
+                (click)="showDeliveryPersonDialog(order.id)"
+                label="Assign a delivery person"
+                icon="pi pi-user"
+              ></button>
+            </div>
+          </ng-template>
         </td>
+        
+        
+        <td>
+          <div (click)="toggleDetails(order)" style="cursor: pointer; display: flex; align-items: center;">
+            <i [ngClass]="{'pi pi-chevron-up pi': order.showDetails, 'pi pi-chevron-down pi': !order.showDetails}" style="margin-right: 5px;"></i>
+            {{ order.showDetails ? 'Hidden' : 'Show' }} Commandes
+          </div>
+          
+          <div *ngIf="order.showDetails">
+            <p-table [value]="order.commandItems" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>ID</th>
+                    <th>Quantity</th>
+                    <th>Prix</th>
+                    <th>Produit</th>
+                    <th>Catégorie</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-command>
+                  <tr>
+                    <td>{{ command.id }}</td>
+                    <td>{{ command.quantity }}</td>
+                    <td>{{ command.prix }}</td>
+                    <td>{{ command.produit.libelle }}</td>
+                    <td>{{ command.produit.categorieProduitDto.libele }}</td>
+                  </tr>
+                </ng-template>
+            </p-table>
+          </div>
+        </td>
+        <td><p-tag [rounded]="true"
+          [severity]="getSeverity(order.methodDePaiement)!"
+          value="{{ order.methodDePaiement }}"
+        ></p-tag></td>
+        <td><p-tag [rounded]="true" 
+          [severity]="getSeverity(order.etatPaiement)!"
+          value="{{ order.etatPaiement }}"
+        ></p-tag>
+        </td>
+        <td><p-tag [rounded]="true"
+          [severity]="getSeverity(order.status)!"
+          value="{{ order.status }}"
+        ></p-tag>
+        </td>
+        <td>
+          <div
+          *ngIf="order.etatLivraison != 'DELIVERED'"
+          class="flex gap-x-3 sm:col-start-3 sm:justify-end"
+        >
+          <button
+            class="p-button-sm p-button-rounded p-button-success w-35"
+            pButton
+            pRipple
+            (click)="markAsDelivered(order.id, order)"
+            label="Delivered"
+            icon="pi pi-check"
+          ></button><br>
+
+          <button
+            class="p-button-sm p-button-rounded p-button-danger w-35 "
+            pButton
+            pRipple size="small"
+            (click)="markAsCancelled(order.id, order)"
+            label="Cancelled"
+            icon="pi pi-times"
+          ></button>
+          
+
+        </div>
+        </td>
+        <TD>
       </tr>
     </ng-template>
   </p-table>
 </div>
+<p-dialog
+  header="Choose a delivery person"
+  [(visible)]="displayDeliveryPersonDialog"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ 'width': '400px' }"
+>
+  <div class="p-fluid">
+    <label for="deliveryPersonDropdown">Select Delivery Person</label>
+    <p-dropdown
+    id="deliveryPersonDropdown"
+    [options]="availableDeliveryPersons"
+    [(ngModel)]="selectedDeliveryPerson"
+    optionLabel="fullname"
+    ></p-dropdown>
 
-
-
-
+    <button
+  class="p-button p-button-primary"
+  pButton
+  (click)="assignDeliveryPerson(selectedDeliveryPerson.id, valeur)"
+  label="Assign"
+></button>
+  </div>
+</p-dialog>

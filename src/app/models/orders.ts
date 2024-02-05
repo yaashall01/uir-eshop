@@ -29,11 +29,14 @@ export interface Order {
   totalPaye: number;
   client: Client | string;
   deliveryPerson: Delivery | string | undefined;
-  etatLivraison: "PENDING" | "DELIVERED" | "CANCELLED";
+  status: "PENDING" | "DELIVERED" | "CANCELLED";
   methodDePaiement: "EN_LIGNE" | "A_LA_LIVRAISON";
   etatPaiement: "PAYE" | "ANNULE" | "EN_ATTENTE";
   commandeItemDtos: Command[] | string;
+  showDetails?: boolean;
+  showDetails2?: boolean;
 }
+
 export function mapCommandDto(order: Order, stringify = false) {
   if (stringify) {
     // Stringdying

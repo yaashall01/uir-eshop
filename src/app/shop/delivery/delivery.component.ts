@@ -19,7 +19,6 @@ export class DeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.getDelivery();
     this.deliveryForm = this.fb.group({
-      // idVariety: ['', [Validators.required]],
       fullname: ['', [Validators.required]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
