@@ -40,6 +40,11 @@ assignDeliveryPerson(deliveryPersonId: number, orderId: number): void {
     (updatedOrder: Order) => {
       console.log('Assignment successful:', updatedOrder);
       // Mettez à jour votre liste d'ordres ou effectuez d'autres actions nécessaires.
+      // Fermer le dialogue
+      this.displayDeliveryPersonDialog = false;
+
+      // Rafraîchir la page
+      window.location.reload();
     },
     (error) => {
       console.error('Assignment failed:', error);

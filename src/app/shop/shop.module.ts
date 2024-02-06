@@ -24,6 +24,17 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { DeliveryComponent } from './delivery/delivery.component';
+import { StockComponent } from './stock/stock.component';
+import { EditProductComponent } from './stock/edit-product/edit-product.component';
+import { ListProductComponent } from './stock/list-product/list-product.component';
+import { PackageComponent } from './stock/package/package.component';
+import { StockCategoryComponent } from './stock/stock-category/stock-category.component';
+import { StocksComponent } from './stock/stocks/stocks.component';
+import { ListWarehouseComponent } from './stock/warehouse/list-warehouse/list-warehouse.component';
+import { ViewWarehouseComponent } from './stock/warehouse/view-warehouse/view-warehouse.component';
+import { EditWarehouseComponent } from './stock/warehouse/edit-warehouse/edit-warehouse.component';
+import { RouterModule } from '@angular/router';
+import { CargoComponent } from './stock/list-product/cargo/cargo.component';
 
 @NgModule({
   declarations: [  
@@ -34,7 +45,17 @@ import { DeliveryComponent } from './delivery/delivery.component';
     AddProductComponent,
     OrdersComponent,
     SuppliersComponent,
-    DeliveryComponent
+    DeliveryComponent,
+    ListProductComponent,
+    PackageComponent,
+    StockCategoryComponent,
+    StocksComponent,
+    ListWarehouseComponent,
+    StockComponent,
+    ViewWarehouseComponent,
+    CargoComponent,
+    
+
     ],
   imports: [
     CommonModule,
@@ -57,6 +78,8 @@ import { DeliveryComponent } from './delivery/delivery.component';
     TagModule,
     BrowserModule,
     TableModule,
+    RouterModule
+
 
   ]
 })

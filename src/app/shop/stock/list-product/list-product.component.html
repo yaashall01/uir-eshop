@@ -1,0 +1,27 @@
+<p-table [value]="products" [scrollable]="true" scrollHeight="500px">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Reference</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Stocks</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.reference }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.categoryDto.label }}</td>
+      <td>{{ product.stockDtos.length }}</td>
+      <td>
+        <a [routerLink]="['product-edit/'+product.id]" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+        <a (click)="open(product)" class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-3">Add Cargo</a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
