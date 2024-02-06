@@ -18,35 +18,40 @@
         <form [formGroup]="deliveryForm" class="delivery-form">
             <div class="field">
                 <label class="block" for="fullname">fullname </label>
-                <input type="text" pInputText formControlName="fullname"/>              
+                <input type="text" pInputText formControlName="fullname" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="deliveryForm.get('fullname')?.hasError('required') && deliveryForm.get('fullname')?.touched">
                     delivery name is required.
                 </div>           
             </div>
             <div class="field">
                 <label class="block" for="email">email </label>
-                <input type="text" pInputText formControlName="email"/>              
+                <input type="text" pInputText formControlName="email" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="deliveryForm.get('email')?.hasError('required') && deliveryForm.get('email')?.touched">
                     delivery email is required.
                 </div>           
             </div>
             <div class="field">
                 <label class="block" for="phone">phone </label>
-                <input type="number" pInputText formControlName="phone"/>              
+                <input type="number" pInputText formControlName="phone" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="deliveryForm.get('phone')?.hasError('required') && deliveryForm.get('phone')?.touched">
                     delivery number is required.
                 </div>           
             </div>
             <div class="field">
                 <label class="block" for="city">city </label>
-                <input type="text" pInputText formControlName="city"/>              
+                <input type="text" pInputText formControlName="city" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="deliveryForm.get('city')?.hasError('required') && deliveryForm.get('city')?.touched">
                     delivery city is required.
                 </div>           
             </div>
             <div class="field">
                 <label class="block" for="status">status </label>
-                <select formControlName="status">
+                <select formControlName="status" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                ">
                     <option value="AVAILABLE">AVAILABLE</option>
                     <option value="NOT AVAILABLE">NOT AVAILABLE</option>
                 </select>

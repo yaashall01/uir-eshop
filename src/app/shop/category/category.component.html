@@ -1,5 +1,5 @@
 <div class="card flex justify-content-center">
-    <p-button (click)="toggleModal()" icon="pi pi-check" label="Add Category"></p-button>
+    <p-button (click)="toggleModal()" icon="pi pi-plus" label="Add Category"></p-button>
     <p-dialog
      header="{isEditing ? add : edit}"
      [(visible)]="visible" 
@@ -18,7 +18,8 @@
         <form [formGroup]="categoryForm" class="product-form">
             <div class="field">
                 <label class="block" for="nomCategory">nomCategory </label>
-                <input type="text" pInputText formControlName="nomCategory"/>              
+                <input type="text" pInputText formControlName="nomCategory" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="categoryForm.get('nomCategory')?.hasError('required') && categoryForm.get('nomCategory')?.touched">
                     Category Name is required.
                 </div>           

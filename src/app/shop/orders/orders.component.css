@@ -1,1 +1,6 @@
 @import 'primeicons/primeicons.css';
+.smaller-button {
+    width: 90px; /* Ajustez la largeur selon vos besoins */
+    height: 40px; /* Ajustez la hauteur selon vos besoins */
+    font-size: 12px; /* Ajustez la taille de la police selon vos besoins */
+  }

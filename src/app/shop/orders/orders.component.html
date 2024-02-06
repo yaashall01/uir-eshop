@@ -6,11 +6,12 @@
         <th>ID</th>
         <th>Total Paye</th>
         <th>client </th>
-        <th>Delivery Person</th>
+        
         <th>Commandes</th>
         <th>Method De Paiement</th>
         <th>Payment state:</th>
         <th>status</th>
+        <th>Delivery Person</th>
         <th>Action</th>
       </tr>
     </ng-template>
@@ -50,26 +51,6 @@
           </div>
         </td>
         
-        <td>
-          <div *ngIf="order.deliveryPerson; else assignDeliveryPerson">
-            <div class="flex gap-x-3 sm:justify-end">
-              <p>{{ order.deliveryPerson.fullname }}</p>
-            </div>
-          </div>
-        
-          <ng-template #assignDeliveryPerson>
-            <div class="flex justify-end gap-x-3 sm:col-start-3">
-              <button
-                class="p-button-sm p-button-rounded sm:w-60"
-                pButton
-                pRipple
-                (click)="showDeliveryPersonDialog(order.id)"
-                label="Assign a delivery person"
-                icon="pi pi-user"
-              ></button>
-            </div>
-          </ng-template>
-        </td>
         
         
         <td>
@@ -115,6 +96,27 @@
           value="{{ order.status }}"
         ></p-tag>
         </td>
+        <td>
+          <div *ngIf="order.deliveryPerson; else assignDeliveryPerson">
+            <div class="flex gap-x-3 sm:justify-end">
+              <p>{{ order.deliveryPerson.fullname }}</p>
+            </div>
+          </div>
+        
+          <ng-template #assignDeliveryPerson>
+            <div class="flex justify-end gap-x-3 sm:col-start-3">
+              <button
+              class="p-button-sm p-button-rounded sm:w-60 smaller-button"
+                pButton
+                pRipple
+                (click)="showDeliveryPersonDialog(order.id)"
+                label="delivery "
+                icon="pi pi-user"
+              ></button>
+            </div>
+          </ng-template>
+        </td>
+        
         <td>
           <div
           *ngIf="order.etatLivraison != 'DELIVERED'"

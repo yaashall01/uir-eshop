@@ -1,5 +1,5 @@
 <div class="card flex justify-content-center">
-    <p-button (click)="toggleModal()" icon="pi pi-check" label="Add Supplier"></p-button>
+    <p-button (click)="toggleModal()" icon="pi pi-plus" label="Add Supplier"></p-button>
     <p-dialog
      header=""
      [(visible)]="visible" 
@@ -15,21 +15,24 @@
         <form [formGroup]="supplierForm" class="supplier-form">
             <div class="field">
                 <label class="block" for="nomSupplier">nomSupplier </label>
-                <input type="text" pInputText formControlName="nomSupplier"/>              
+                <input type="text" pInputText formControlName="nomSupplier" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="supplierForm.get('nomSupplier')?.hasError('required') && supplierForm.get('nomSupplier')?.touched">
                     supplier Name is required.
                 </div>           
             </div> 
             <div class="field">
                 <label class="block" for="mail">mail </label>
-                <input type="text" pInputText formControlName="mail"/>              
+                <input type="text" pInputText formControlName="mail" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="supplierForm.get('mail')?.hasError('required') && supplierForm.get('mail')?.touched">
                     supplier email is required.
                 </div>           
             </div>
             <div class="field">
                 <label class="block" for="rib">rib </label>
-                <input type="number" pInputText formControlName="rib"/>              
+                <input type="number" pInputText formControlName="rib" class=" border border-white-300 text-white-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white-600 border-white-500 placeholder-white-400 text-black focus:ring-primary-500 focus:border-primary-500
+                "/>              
                 <div *ngIf="supplierForm.get('rib')?.hasError('required') && supplierForm.get('rib')?.touched">
                     supplier rib is required.
                 </div>           

@@ -17,8 +17,7 @@ export class MenuComponent implements OnInit {
           {
               label: 'Home',
               items: [
-                  { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                  { label: 'Reviews', icon: 'pi pi-fw pi-circle', routerLink: ['/'] }
+                  { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
               ]
           },
           {
@@ -77,8 +76,7 @@ export class MenuComponent implements OnInit {
                     }
                 ]
                 },
-                  { label: 'Shipping', icon: 'pi pi-fw pi-truck', routerLink: ['/uikit/floatlabel'] },
-                  { label: 'Billing', icon: 'pi pi-fw pi-dollar', routerLink: ['/uikit/invalidstate'] }
+                  
               ]
           },
           {
