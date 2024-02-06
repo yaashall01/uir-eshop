@@ -89,9 +89,10 @@
                 <td>{{supplier.rib}}</td>
                 <td>{{supplier.phoneNumber}}</td>
                 <td>
-                  <ul>
-                    <li *ngFor="let product of supplier.products ">{{ product.idProduct }}</li>
-                  </ul>
+                    <div class="flex flex-col gap-y-2">
+                        <p-tag *ngFor="let product of supplier.products " severity="success" value="{{ product.nomProduct }}"></p-tag> 
+                    </div>
+                  
                 </td>
                 <td ><i (click)="editSupplier(supplier)"  class="pi pi-pencil cursor-pointer hover:text-blue-400 mr-6"></i></td>
                 <td> <i (click)="deleteSupplier(supplier.idSupplier)" class="pi pi-trash cursor-pointer hover:text-blue-400" ></i></td>
